@@ -1,5 +1,5 @@
 {% set name = "category_encoders" %}
-{% set version = "2.2.2" %}
+{% set version = "2.5.0" %}
 
 package:
   name: {{ name }}
@@ -7,36 +7,38 @@ package:
 
 source:
   - url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-    sha256: 79651dc3e8cd6749bc5d404c49a79e93469016d106736326842305e076136cb0
+    sha256: 64dc68cd30dea32a390b3eed880f6e365635118c916b082dde99b76741155c15
     folder: dist
   - url: https://github.com/scikit-learn-contrib/{{ name }}/archive/{{ version }}.tar.gz
-    sha256: b8fa5f2c2f3294ed7847e9c5486566604a6a321308dfb5377440a7ca2a9a5b1f
+    sha256: ff72d21ddf62d829f43375c67ea4934c82947f9a0c5cbf9114838624db941420
     folder: src
 
 build:
-  noarch: python
+  # noarch: python
   number: 0
   script:
-    - cd dist && {{ PYTHON }} -m pip install -vvv .
+    - cd dist && {{ PYTHON }} -m pip install --no-deps -vvv .
 
 requirements:
   host:
-    - numpy >=1.14.0
-    - pandas >=0.21.1
-    - patsy >=0.5.1
+    - python
     - pip
-    - python >=3.5
+    - wheel
+    - setuptools
+    - numpy >=1.16
     - scikit-learn >=0.20.0
     - scipy >=1.0.0
     - statsmodels >=0.9.0
-  run:
-    - numpy >=1.14.0
     - pandas >=0.21.1
     - patsy >=0.5.1
-    - python >=3.5
+  run:
+    - numpy >=1.16
     - scikit-learn >=0.20.0
     - scipy >=1.0.0
     - statsmodels >=0.9.0
+    - pandas >=0.21.1
+    - patsy >=0.5.1
+    - python
 
 test:
   source_files:
@@ -64,19 +66,14 @@ about:
     into numeric with different techniques. While ordinal, one-hot, and hashing
     encoders have similar equivalents in the existing scikit-learn version, the
     transformers in this library all share a few useful properties:
-
     - First-class support for pandas dataframes as an input (and optionally as
       output)
-
     - Can explicitly configure which columns in the data are encoded by name or
       index, or infer non-numeric columns regardless of input type
-
     - Can drop any columns with very low variance based on training set
       optionally
-
     - Portability: train a transformer on data, pickle it, reuse it later and
       get the same thing out.
-
     - Full compatibility with sklearn pipelines, input an array-like dataset
       like any other transformer
 
