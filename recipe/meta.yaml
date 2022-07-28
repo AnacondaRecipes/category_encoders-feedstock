@@ -43,15 +43,13 @@ test:
   source_files:
     - tests
   requires:
-    - cython
     - pip
     - pytest
-    - pytest-cov
   imports:
     - category_encoders
   commands:
     - python -m pip check
-    - pytest -vv --cov category_encoders -k "not (pandas_index or truncated_index)"
+    - pytest -vv -k "not (pandas_index or truncated_index)"
 
 about:
   home: https://github.com/scikit-learn-contrib/categorical_encoding
