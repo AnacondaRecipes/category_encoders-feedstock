@@ -1,16 +1,15 @@
 numpy:
-  - 1.16    # [not (arm64 or aarch64 or s390x)]
-  - 1.19    # [aarch64 or s390x]
-  - 1.16    # [not (aarch64 or s390x)]
-  - 1.19    # [aarch64 or s390x]
-  - 1.19
-  - 1.21
+- 1.16 # [not (aarch64 or s390x or arm64)]
+- 1.16 # [not (aarch64 or s390x or arm64)]
+- 1.19 # [aarch64 or s390x]
+- 1.19 # [aarch64 or s390x or arm64]
+- 1.19
+- 1.21
 python:
-  - 3.7      # [not arm64]
-  - 3.8
-  - 3.9
-  - "3.10"
+- 3.7  # [not arm64]
+- 3.8
+- 3.9
+- "3.10"
 zip_keys:
-  -
-    - python
-    - numpy
+- numpy
+- python

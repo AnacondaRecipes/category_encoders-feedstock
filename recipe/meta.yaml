@@ -23,6 +23,7 @@ requirements:
     - pip
     - wheel
     - setuptools
+    # See our custom cbc.yaml for modified pinnnigs
     - numpy
     - scikit-learn >=0.20.0
     - scipy >=1.0.0
