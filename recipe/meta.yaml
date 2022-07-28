@@ -29,7 +29,6 @@ requirements:
     - statsmodels >=0.9.0
     - pandas >=1.0.5
     - patsy >=0.5.1
-    - unittest2
   run:
     - python
     - {{ pin_compatible('numpy') }}
@@ -38,7 +37,6 @@ requirements:
     - statsmodels >=0.9.0
     - pandas >=1.0.5
     - patsy >=0.5.1
-    - unittest2
 
 test:
   source_files:
