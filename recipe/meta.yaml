@@ -1,5 +1,6 @@
 {% set name = "category_encoders" %}
 {% set version = "2.5.0" %}
+{% set sha256 = "ff72d21ddf62d829f43375c67ea4934c82947f9a0c5cbf9114838624db941420" %}
 
 package:
   name: {{ name }}
@@ -7,7 +8,7 @@ package:
 
 source:
   - url: https://github.com/scikit-learn-contrib/{{ name }}/archive/{{ version }}.tar.gz
-    sha256: ff72d21ddf62d829f43375c67ea4934c82947f9a0c5cbf9114838624db941420
+    sha256: {{ sha256 }}
 
 build:
   # noarch: python
