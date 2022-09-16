@@ -45,6 +45,8 @@ test:
   requires:
     - pip
     - pytest
+    # scipy 1.7.3 has requirement numpy<1.23.0,>=1.16.5, but you have numpy 1.23.1
+    - numpy <1.23
   imports:
     - category_encoders
   commands:
