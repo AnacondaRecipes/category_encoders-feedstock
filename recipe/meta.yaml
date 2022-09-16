@@ -12,8 +12,8 @@ source:
 
 build:
   # noarch: python
-  number: 0
-  skip: true  # [py<37]
+  number: 1
+  skip: true  # [py<37 or py<38 and arm64]
   script:
     - {{ PYTHON }} -m pip install --no-deps -vvv .
 
@@ -45,6 +45,7 @@ test:
   requires:
     - pip
     - pytest
+    - numpy <1.23
   imports:
     - category_encoders
   commands:
