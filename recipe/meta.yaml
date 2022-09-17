@@ -2,6 +2,16 @@
 {% set version = "2.5.0" %}
 {% set sha256 = "ff72d21ddf62d829f43375c67ea4934c82947f9a0c5cbf9114838624db941420" %}
 
+# We are overriding the default numpy pins slightly because statsmodels
+# was not built against 1.16 in all cases it was supposed to be. We are
+# doing it here instead of with a custom conda_build_config.yaml because
+# the latter is apparently incompatible with our prefect build process,
+# silently skipping one or more of the python versions.
+{% set numpy = "1.16" %}  # [py<39 and not (aarch64 or s390x or arm64)]
+{% set numpy = "1.19" %}  # [py<39 and (aarch64 or s390x or arm64)]
+{% set numpy = "1.19" %}  # [py==39]
+{% set numpy = "1.21" %}  # [py>39]
+
 package:
   name: {{ name }}
   version: {{ version }}
@@ -12,7 +22,7 @@ source:
 
 build:
   # noarch: python
-  number: 0
+  number: 1
   skip: true  # [py<37]
   script:
     - {{ PYTHON }} -m pip install --no-deps -vvv .
@@ -23,8 +33,8 @@ requirements:
     - pip
     - wheel
     - setuptools
-    # See our custom cbc.yaml for modified pinnnigs
-    - numpy
+    # See above for pinning details
+    - numpy {{ numpy }}
     - scikit-learn >=0.20.0
     - scipy >=1.0.0
     - statsmodels >=0.9.0
@@ -45,6 +55,9 @@ test:
   requires:
     - pip
     - pytest
+    # temporary constraint needed to solve conflict between
+    # scipy 1.7.3 has and numpy 1.23.0. Remove on next build
+    - numpy <1.23
   imports:
     - category_encoders
   commands:
