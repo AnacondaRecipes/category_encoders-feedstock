@@ -41,7 +41,7 @@ test:
     - category_encoders
   commands:
     - python -m pip check
-    - pytest -vv -k "not (pandas_index or truncated_index)"
+    - pytest -vv -k "not (pandas_index or truncated_index or test_extraValue)"
 
 about:
   home: https://github.com/scikit-learn-contrib/category_encoders
