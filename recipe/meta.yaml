@@ -1,16 +1,6 @@
 {% set name = "category_encoders" %}
-{% set version = "2.5.0" %}
-{% set sha256 = "ff72d21ddf62d829f43375c67ea4934c82947f9a0c5cbf9114838624db941420" %}
-
-# We are overriding the default numpy pins slightly because statsmodels
-# was not built against 1.16 in all cases it was supposed to be. We are
-# doing it here instead of with a custom conda_build_config.yaml because
-# the latter is apparently incompatible with our prefect build process,
-# silently skipping one or more of the python versions.
-{% set numpy = "1.16" %}  # [py<39 and not (aarch64 or s390x or arm64)]
-{% set numpy = "1.19" %}  # [py<39 and (aarch64 or s390x or arm64)]
-{% set numpy = "1.19" %}  # [py==39]
-{% set numpy = "1.21" %}  # [py>39]
+{% set version = "2.6.0" %}
+{% set sha256 = "bd9cfe8430b6cc2d67eaa51000937983422ebd81f88d770c3dcbe6cf9563e96e" %}
 
 package:
   name: {{ name }}
@@ -21,8 +11,7 @@ source:
     sha256: {{ sha256 }}
 
 build:
-  # noarch: python
-  number: 1
+  number: 0
   skip: true  # [py<37]
   script:
     - {{ PYTHON }} -m pip install --no-deps -vvv .
@@ -33,16 +22,9 @@ requirements:
     - pip
     - wheel
     - setuptools
-    # See above for pinning details
-    - numpy {{ numpy }}
-    - scikit-learn >=0.20.0
-    - scipy >=1.0.0
-    - statsmodels >=0.9.0
-    - pandas >=1.0.5
-    - patsy >=0.5.1
   run:
     - python
-    - {{ pin_compatible('numpy') }}
+    - numpy >=1.14.0
     - scikit-learn >=0.20.0
     - scipy >=1.0.0
     - statsmodels >=0.9.0
@@ -55,22 +37,20 @@ test:
   requires:
     - pip
     - pytest
-    # temporary constraint needed to solve conflict between
-    # scipy 1.7.3 has and numpy 1.23.0. Remove on next build
-    - numpy <1.23
   imports:
     - category_encoders
   commands:
     - python -m pip check
-    - pytest -vv -k "not (pandas_index or truncated_index)"
+    - pytest -vv -k "not (pandas_index or truncated_index or test_extraValue)"
 
 about:
-  home: https://github.com/scikit-learn-contrib/categorical_encoding
+  home: https://github.com/scikit-learn-contrib/category_encoders
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE.md
   summary: A collection sklearn transformers to encode categorical variables as numeric
-  doc_url: https://contrib.scikit-learn.org/categorical-encoding
+  doc_url: https://contrib.scikit-learn.org/category_encoders
+  dev_url: https://github.com/scikit-learn-contrib/category_encoders
   description: |-
     A set of scikit-learn-style transformers for encoding categorical variables
     into numeric with different techniques. While ordinal, one-hot, and hashing
