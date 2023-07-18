@@ -13,6 +13,8 @@ build:
   number: 0
   skip: true  # [py<38]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
+  patches:
+    - patches/replace_pkg_resources_with_importlib.patch
 
 requirements:
   host:
