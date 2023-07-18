@@ -8,15 +8,18 @@ package:
 source:
   url: https://github.com/scikit-learn-contrib/{{ name }}/archive/{{ version }}.tar.gz
   sha256: 51d4c594cd102a3d30a4a00f3ffa62f73b3d2f4298e7a57df8a8046a8d7881f5
+  patches:
+    - patches/replace_pkg_resources_with_importlib.patch
 
 build:
   number: 0
   skip: true  # [py<38]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
-  patches:
-    - patches/replace_pkg_resources_with_importlib.patch
 
 requirements:
+  build:
+    - patch       # [not win]
+    - m2-patch    # [win]
   host:
     - python
     - pip
