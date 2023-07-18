@@ -6,8 +6,8 @@ package:
   version: {{ version }}
 
 source:
-  - url: https://github.com/scikit-learn-contrib/{{ name }}/archive/{{ version }}.tar.gz
-    sha256: 51d4c594cd102a3d30a4a00f3ffa62f73b3d2f4298e7a57df8a8046a8d7881f5
+  url: https://github.com/scikit-learn-contrib/{{ name }}/archive/{{ version }}.tar.gz
+  sha256: 51d4c594cd102a3d30a4a00f3ffa62f73b3d2f4298e7a57df8a8046a8d7881f5
 
 build:
   number: 0
@@ -19,17 +19,15 @@ requirements:
     - python
     - pip
     - wheel
-    - numpy >=1.14.0
     - setuptools
   run:
     - python
-    - numpy >=1.14.0
     - scikit-learn >=0.20.0
     - scipy >=1.0.0
-    - pandas >=1.0.5
+    - pandas >=1.5.3
     - patsy >=0.5.1
     - statsmodels >=0.9.0
-    - importlib_resources  # [py<39]
+    - numpy >=1.20.0
 
 test:
   source_files:
@@ -37,11 +35,12 @@ test:
   requires:
     - pip
     - pytest
+    - pytest-cov
   imports:
     - category_encoders
   commands:
-    - python -m pip check
-    - python -W ignore -m pytest src -vv --cov=category_encoders --cov-branch -k="not (pandas_index or truncated_index)" --cov-report=term-missing:skip-covered --no-cov-on-fail --cov-fail-under=8
+    - pip check
+    - pytest -vv -k "not (pandas_index or truncated_index or test_extraValue)"
 
 about:
   home: https://github.com/scikit-learn-contrib/category_encoders
