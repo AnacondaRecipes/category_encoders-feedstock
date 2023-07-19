@@ -1,7 +1,7 @@
 From 401267aeaf250e50da1ced38a311f8efa49a81a0 Mon Sep 17 00:00:00 2001
 From: Nicholas Bollweg <nick.bollweg@gmail.com>
 Date: Mon, 15 May 2023 21:08:03 -0500
-Subject: [PATCH 1/2] replace pkg_resources with importlib.resources
+Subject: [PATCH] replace pkg_resources with importlib.resources
 
 ---
  category_encoders/datasets/_base.py | 14 +++++++++-----
@@ -71,35 +71,3 @@ index 67f2c6c1..406f79f7 100644
      ],
      author_email='will@pedalwrencher.com',
      package_data={'': ['datasets/data/*.csv']},
-
-From 6b07130c6f3d64de57c505021732a7e6a49928fe Mon Sep 17 00:00:00 2001
-From: Nicholas Bollweg <nick.bollweg@gmail.com>
-Date: Mon, 15 May 2023 21:17:37 -0500
-Subject: [PATCH 2/2] use package name literal
-
----
- category_encoders/datasets/_base.py | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/category_encoders/datasets/_base.py b/category_encoders/datasets/_base.py
-index 80f602e8..bb168da1 100644
---- a/category_encoders/datasets/_base.py
-+++ b/category_encoders/datasets/_base.py
-@@ -25,7 +25,7 @@ def load_compass():
-
-     """
-     data_filename = "data/compass.csv"
--    stream = files(__name__) / data_filename
-+    stream = files("category_encoders.datasets") / data_filename
-
-     with as_file(stream) as f:
-         df = pd.read_csv(f, encoding='latin-1')
-@@ -60,7 +60,7 @@ def load_postcodes(target_type='binary'):
-
-     """
-     data_filename = "data/postcode_dataset_100.csv"
--    stream = files(__name__) / data_filename
-+    stream = files("category_encoders.datasets") / data_filename
-
-     with as_file(stream) as f:
-         df = pd.read_csv(f, encoding='latin-1')
