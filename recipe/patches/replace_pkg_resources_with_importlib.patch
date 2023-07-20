@@ -31,7 +31,7 @@ index deae12f1..80f602e8 100644
      """
      data_filename = "data/compass.csv"
 -    stream = pkg_resources.resource_filename(__name__, data_filename)
-+    stream = files(__name__) / data_filename
++    stream = files("category_encoders.datasets") / data_filename
 
 -    with open(stream) as f:
 +    with as_file(stream) as f:
@@ -43,7 +43,7 @@ index deae12f1..80f602e8 100644
      """
      data_filename = "data/postcode_dataset_100.csv"
 -    stream = pkg_resources.resource_filename(__name__, data_filename)
-+    stream = files(__name__) / data_filename
++    stream = files("category_encoders.datasets") / data_filename
 
 -    with open(stream) as f:
 +    with as_file(stream) as f:
