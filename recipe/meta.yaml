@@ -41,13 +41,12 @@ test:
   requires:
     - pip
     - pytest
-    - pytest-cov
   imports:
     - category_encoders
   commands:
     - pip check
     - pytest -vv -k "not (pandas_index or truncated_index or test_extraValue or test_large_samples_binary)"
-      # test are skipped due to numpy availability in defaults.
+      # tests are skipped due to upstream numpy regression for numpy versions 1.24.3 (used for 3.8) and 1.25.0 (used for the other Python versions).
 about:
   home: https://github.com/scikit-learn-contrib/category_encoders
   license: BSD-3-Clause
