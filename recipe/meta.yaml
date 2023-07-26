@@ -31,7 +31,6 @@ requirements:
 test:
   requires:
     - pip
-    - pytest
   imports:
     - category_encoders
   commands:
