@@ -1,5 +1,6 @@
 upload_channels:
   - ari-test
+  - sfed1ed40
 channels:
-- ari-test
-- sfed1ed40
+  - ari-test
+  - sfed1ed40
