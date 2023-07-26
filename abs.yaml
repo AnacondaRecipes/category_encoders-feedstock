@@ -2,4 +2,4 @@ upload_channels:
   - ari-test
 channels:
 - ari-test
-upload_witout_merging: true
+- sfed1ed40
