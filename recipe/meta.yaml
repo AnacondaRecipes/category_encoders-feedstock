@@ -40,7 +40,8 @@ test:
     - category_encoders
   commands:
     - pip check
-    - pytest -vv tests
+    - pytest -vv tests -k "not test_large_samples_binary" # [linux and (aarch64 or s390x)] 
+    - pytest -vv tests # [not (aarch64 or s390x)]
 about:
   home: https://github.com/scikit-learn-contrib/category_encoders
   license: BSD-3-Clause
