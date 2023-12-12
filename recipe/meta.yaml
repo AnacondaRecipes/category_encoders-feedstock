@@ -1,15 +1,13 @@
 {% set name = "category_encoders" %}
-{% set version = "2.6.1" %}
+{% set version = "2.6.3" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  url: https://github.com/scikit-learn-contrib/{{ name }}/archive/{{ version }}.tar.gz
-  sha256: 51d4c594cd102a3d30a4a00f3ffa62f73b3d2f4298e7a57df8a8046a8d7881f5
-  patches:
-    - patches/replace_pkg_resources_with_importlib.patch
+  url: https://github.com/scikit-learn-contrib/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
+  sha256: efe91b537e7aa311fc3e6e7d61b553134fea4ba6b230da0d67d86ff5d5e7627e
 
 build:
   number: 0
@@ -17,9 +15,6 @@ build:
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
-  build:
-    - patch       # [not win]
-    - m2-patch    # [win]
   host:
     - python
     - pip
@@ -29,10 +24,10 @@ requirements:
     - python
     - scikit-learn >=0.20.0
     - scipy >=1.0.0
-    - pandas >=1.5.3
+    - pandas >=1.0.5
     - patsy >=0.5.1
     - statsmodels >=0.9.0
-    - numpy >=1.20.0
+    - numpy >=1.14.0
     - importlib_resources # [py<39]
 
 test:
@@ -45,8 +40,8 @@ test:
     - category_encoders
   commands:
     - pip check
-    - pytest -vv -k "not (pandas_index or truncated_index or test_extraValue or test_large_samples_binary)"
-      # tests are skipped due to upstream numpy regression for numpy versions 1.24.3 (used for 3.8) and 1.25.0 (used for the other Python versions).
+    - pytest -vv tests -k "not test_large_samples_binary" # [linux and (aarch64 or s390x)] 
+    - pytest -vv tests # [not (aarch64 or s390x)]
 about:
   home: https://github.com/scikit-learn-contrib/category_encoders
   license: BSD-3-Clause
