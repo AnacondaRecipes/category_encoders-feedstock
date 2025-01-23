@@ -1,5 +1,5 @@
 {% set name = "category_encoders" %}
-{% set version = "2.6.3" %}
+{% set version = "2.8.0" %}
 
 package:
   name: {{ name }}
@@ -7,28 +7,26 @@ package:
 
 source:
   url: https://github.com/scikit-learn-contrib/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
-  sha256: efe91b537e7aa311fc3e6e7d61b553134fea4ba6b230da0d67d86ff5d5e7627e
+  sha256: d8e69b11340cdbd35a644e9d29493ab366c125ab8c832b379a6d36c59a274e3f
 
 build:
   number: 0
-  skip: true  # [py<38]
+  skip: true  # [py<310]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   host:
     - python
     - pip
-    - wheel
-    - setuptools
+    - poetry-core
   run:
     - python
-    - scikit-learn >=0.20.0
+    - scikit-learn >=1.6.0
     - scipy >=1.0.0
     - pandas >=1.0.5
     - patsy >=0.5.1
     - statsmodels >=0.9.0
     - numpy >=1.14.0
-    - importlib_resources # [py<39]
 
 test:
   source_files:
