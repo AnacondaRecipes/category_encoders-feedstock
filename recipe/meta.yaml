@@ -1,5 +1,5 @@
 {% set name = "category_encoders" %}
-{% set version = "2.8.0" %}
+{% set version = "2.8.1" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/scikit-learn-contrib/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
-  sha256: a597827a2337222f6fd18ed92dd9f549e2864a8f14f062526f5ef26f17bfcfd6
+  sha256: 5f701054641f4aaa6712dd453d80f5b3cf3388cbb8b5501a32b29d7f1cbbd9db
 
 build:
   number: 0
@@ -50,7 +50,7 @@ about:
   summary: A collection sklearn transformers to encode categorical variables as numeric
   doc_url: https://contrib.scikit-learn.org/category_encoders
   dev_url: https://github.com/scikit-learn-contrib/category_encoders
-  description: |-
+  description: |
     A set of scikit-learn-style transformers for encoding categorical variables
     into numeric with different techniques. While ordinal, one-hot, and hashing
     encoders have similar equivalents in the existing scikit-learn version, the
