@@ -1,5 +1,5 @@
 {% set name = "category_encoders" %}
-{% set version = "2.8.1" %}
+{% set version = "2.9.0" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/scikit-learn-contrib/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
-  sha256: 5f701054641f4aaa6712dd453d80f5b3cf3388cbb8b5501a32b29d7f1cbbd9db
+  sha256: a07531daef89dab7f4f3ac2a83dc56f3cbf4f696e304ea40f6362a77ec56782c
 
 build:
   number: 0
@@ -56,15 +56,20 @@ about:
     encoders have similar equivalents in the existing scikit-learn version, the
     transformers in this library all share a few useful properties:
     - First-class support for pandas dataframes as an input (and optionally as
-      output)
+    output)
     - Can explicitly configure which columns in the data are encoded by name or
-      index, or infer non-numeric columns regardless of input type
+    index, or infer non-numeric columns regardless of input type
     - Can drop any columns with very low variance based on training set
-      optionally
+    optionally
     - Portability: train a transformer on data, pickle it, reuse it later and
-      get the same thing out.
+    get the same thing out.
     - Full compatibility with sklearn pipelines, input an array-like dataset
-      like any other transformer
+    like any other transformer
+
+
+
+
+
 
 extra:
   recipe-maintainers:
