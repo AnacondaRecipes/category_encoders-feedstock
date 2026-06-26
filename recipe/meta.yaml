@@ -34,6 +34,7 @@ test:
   requires:
     - pip
     - pytest
+    - scikit-learn <1.9.0
   imports:
     - category_encoders
   commands:
