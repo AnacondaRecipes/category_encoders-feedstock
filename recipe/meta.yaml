@@ -10,7 +10,7 @@ source:
   sha256: a07531daef89dab7f4f3ac2a83dc56f3cbf4f696e304ea40f6362a77ec56782c
 
 build:
-  number: 0
+  number: 1
   skip: true  # [py<311]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
@@ -34,6 +34,7 @@ test:
   requires:
     - pip
     - pytest
+    - scikit-learn <1.9.0
   imports:
     - category_encoders
   commands:
