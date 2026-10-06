@@ -31,10 +31,6 @@ requirements:
 test:
   source_files:
     - tests
-  requires:
-    - pip
-    - pytest
-    - scikit-learn <1.9.0
   imports:
     - category_encoders
   commands:
@@ -43,6 +39,13 @@ test:
     # osx-arm64 fails test_large_samples_binary with FloatingPointError: underflow encountered in cast
     - pytest -vv tests -k "not (test_large_samples_binary or test_simple_example
         or test_cat_boost_missing or test_ignored_columns_are_untouched or test_missing_values or test_unknown_value)"
+  requires:
+    - pip
+    - pytest
+    - scikit-learn <1.9.0
+    - statsmodels >=0.9.0
+    # golden tests expect object dtype; remove when upstream supports pandas 3
+    - pandas <3     
 
 about:
   home: https://github.com/scikit-learn-contrib/category_encoders
