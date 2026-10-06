@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/scikit-learn-contrib/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
+  url: https://github.com/scikit-learn-contrib/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
   sha256: fcaba386c716ba8fb7f4d4b4efb2d8474231a2fbc3cf7b4945cf25205971edf0
 
 build:
