@@ -1,18 +1,21 @@
 {% set name = "category_encoders" %}
-{% set version = "2.11.1" %}
+{% set version = "2.11.2" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  url: https://github.com/scikit-learn-contrib/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: fcaba386c716ba8fb7f4d4b4efb2d8474231a2fbc3cf7b4945cf25205971edf0
+  # Upstream tagged the 2.11.2 release commit as "v2.12.2" and never created a
+  # v2.11.2 tag, so the tag name does not match the version it contains
+  # (pyproject.toml and category_encoders.__version__ both report 2.11.2).
+  url: https://github.com/scikit-learn-contrib/{{ name }}/archive/refs/tags/v2.12.2.tar.gz
+  sha256: e9d9e7e2dcfdd93e1ada7680c5d3333d1da6d16901a34b678b05c6789fa03d38
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   skip: true  # [py<311]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   host:
@@ -22,9 +25,9 @@ requirements:
   run:
     - python
     - numpy >=1.14.0
+    - pandas >=1.0.5
     - scikit-learn >=1.6.0
     - scipy >=1.0.0
-    - pandas >=1.0.5
   run_constrained:
     - statsmodels >=0.9.0
 
@@ -35,18 +38,17 @@ test:
     - category_encoders
   commands:
     - pip check
-    # test_simple_example fails on win with dtype mismatch - could be specific to the numpy version solved.
-    # osx-arm64 fails test_large_samples_binary with FloatingPointError: underflow encountered in cast
-    - pytest -vv tests -k "not (test_large_samples_binary or test_simple_example 
-        or test_cat_boost_missing or test_ignored_columns_are_untouched or test_missing_values 
-        or test_unknown_value or test_column_transformer or test_metamorphic)"
+    - pytest -vv tests
   requires:
     - pip
     - pytest
-    - scikit-learn <1.9.0
-    - statsmodels >=0.9.0
+    - pytest-subtests
+    # statsmodels 0.15 changes GLMMEncoder numerics and breaks the dtype-parity
+    # subtests (test_missing_values/test_metamorphic/test_column_transformer);
+    # upstream poetry.lock pins the same cap.
+    - statsmodels >=0.9.0,<0.15
     # golden tests expect object dtype; remove when upstream supports pandas 3
-    - pandas <3     
+    - pandas <3
 
 about:
   home: https://github.com/scikit-learn-contrib/category_encoders
