@@ -6,15 +6,13 @@ package:
   version: {{ version }}
 
 source:
-  # Upstream did not bump the version inside the v2.12.2 tag: pyproject.toml and
-  # category_encoders.__version__ still report 2.11.2 in the released tarball.
   url: https://github.com/scikit-learn-contrib/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
   sha256: e9d9e7e2dcfdd93e1ada7680c5d3333d1da6d16901a34b678b05c6789fa03d38
 
 build:
   number: 0
-  skip: true  # [py<311]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
+  skip: true  # [py<311]
 
 requirements:
   host:
