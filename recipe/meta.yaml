@@ -1,13 +1,17 @@
 {% set name = "category_encoders" %}
-{% set version = "2.11.1" %}
+{% set version = "2.11.2" %}
+# Look like wrong githab tag is used, 
+# current version in pypi and upstream is 2.11.2, but tag is 2.12.2.
+# Remove once upstream fixes the tag to match the version in pypi and upstream.
+{% set github_tag = "2.12.2" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  url: https://github.com/scikit-learn-contrib/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: fcaba386c716ba8fb7f4d4b4efb2d8474231a2fbc3cf7b4945cf25205971edf0
+  url: https://github.com/scikit-learn-contrib/{{ name }}/archive/refs/tags/v{{ github_tag }}.tar.gz
+  sha256: e9d9e7e2dcfdd93e1ada7680c5d3333d1da6d16901a34b678b05c6789fa03d38
 
 build:
   number: 0
@@ -35,18 +39,19 @@ test:
     - category_encoders
   commands:
     - pip check
-    # test_simple_example fails on win with dtype mismatch - could be specific to the numpy version solved.
-    # osx-arm64 fails test_large_samples_binary with FloatingPointError: underflow encountered in cast
-    - pytest -vv tests -k "not (test_large_samples_binary or test_simple_example 
-        or test_cat_boost_missing or test_ignored_columns_are_untouched or test_missing_values 
-        or test_unknown_value or test_column_transformer or test_metamorphic)"
+    # statsmodels 0.15 changed GLMMEncoder numerics and breaks the dtype-parity
+    # subtests inside these three tests; upstream poetry.lock carries the same cap.
+    # win-arm64 only ships statsmodels 0.15.0, so drop those tests there instead.
+    - pytest -vv tests  # [not (win and arm64)]
+    - pytest -vv tests -k "not (test_missing_values or test_metamorphic or test_column_transformer)"  # [win and arm64]
   requires:
     - pip
     - pytest
-    - scikit-learn <1.9.0
-    - statsmodels >=0.9.0
+    - pytest-subtests
+    - statsmodels >=0.9.0,<0.15  # [not (win and arm64)]
+    - statsmodels >=0.9.0  # [win and arm64]
     # golden tests expect object dtype; remove when upstream supports pandas 3
-    - pandas <3     
+    - pandas <3
 
 about:
   home: https://github.com/scikit-learn-contrib/category_encoders
