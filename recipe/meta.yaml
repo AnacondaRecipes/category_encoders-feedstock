@@ -1,12 +1,16 @@
 {% set name = "category_encoders" %}
 {% set version = "2.11.2" %}
+# Look like wrong githab tag is used, 
+# current version in pypi and upstream is 2.11.2, but tag is 2.12.2.
+# Remove once upstream fixes the tag to match the version in pypi and upstream.
+{% set github_tag = "2.12.2" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  url: https://github.com/scikit-learn-contrib/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  url: https://github.com/scikit-learn-contrib/{{ name }}/archive/refs/tags/v{{ github_tag }}.tar.gz
   sha256: e9d9e7e2dcfdd93e1ada7680c5d3333d1da6d16901a34b678b05c6789fa03d38
 
 build:
