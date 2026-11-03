@@ -1,5 +1,5 @@
 {% set name = "category_encoders" %}
-{% set version = "2.12.2" %}
+{% set version = "2.11.2" %}
 
 package:
   name: {{ name }}
